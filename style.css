@@ -15,13 +15,22 @@ main {
     height: 700px;
     width: 850px;
     background-color: rgb(70, 70, 70);
+    
+}
+
+.game {
+    position: relative;
+    top: 38px;
+    left: 55px;
+    height: 624px;
+    width: 800px;
 }
 
 .gamefield {
     position: absolute;
-    display: flex;
-    top: 38px;
-    left: 55px;
+    display: flex;    
+    top: 0px;
+    left: 0px;
     width: 624px;
     height: 624px;
     background-color: black;
@@ -70,6 +79,8 @@ main {
     height: 48px;
     width: 48px;    
 }
+
+
 
 .tank_player_1 {       
     background: url('./assets/images/tank_player1_up_c0_t1_s1.png') 100% 100% no-repeat;

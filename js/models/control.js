@@ -11,7 +11,7 @@ import {
   KeyW,
 } from "./keyboard.js";
 
-let pressedKeys = [];
+const pressedKeys = [];
 
 export function controlKeyHandle(e, keyState) {
   if (e.keyCode === (KeyW || KeyUP)) {
@@ -60,16 +60,12 @@ function _addKey(key) {
   const index = pressedKeys.indexOf(key);
   if (index === -1) {
     pressedKeys.push(key);
-  }
-  console.log(pressedKeys);
+  }  
 }
 
 function _deleteKey(key) {
   const index = pressedKeys.indexOf(key);
   if (index > -1) {
     pressedKeys.splice(index, 1);
-  }
-  console.log(pressedKeys);
+  }  
 }
-
-

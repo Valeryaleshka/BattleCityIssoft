@@ -6,6 +6,4 @@ export class EnemyTank extends Tank{
         this.className = this.className + 'enemy';  
         this.element = this.createElement()      
     }  
-
-  
 }
