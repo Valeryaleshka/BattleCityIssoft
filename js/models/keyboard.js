@@ -1,0 +1,11 @@
+export const KeySPACE = 32;
+export const KeyLEFT = 37;
+export const KeyUP = 38;
+export const KeyRIGHT = 39;
+export const KeyDOWN = 40;
+export const KeyW = 87;
+export const KeyS = 83;
+export const KeyA = 65
+export const KeyD = 68
+export const KeyPRESS = 'KEYPRESS'
+export const KeyUNPRESS = 'KEYUNPRESS'

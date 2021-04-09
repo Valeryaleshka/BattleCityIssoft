@@ -1,0 +1,1 @@
+export const TANK_SPEED = 4;
