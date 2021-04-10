@@ -1,7 +1,7 @@
 export class GameObject {
     constructor(positionTop, positionLeft){
         this.positionTop = positionTop;
-        this.positionLeft = positionLeft;
+        this.positionLeft = positionLeft;        
         this.gameField = document.getElementById('gamefield');
         this.className = 'game_object';
         this.$element;  
@@ -26,6 +26,7 @@ export class GameObject {
     
     deleteElement = () => {
         this.$element.remove();
+        this.$element = null;
     }
 }
 

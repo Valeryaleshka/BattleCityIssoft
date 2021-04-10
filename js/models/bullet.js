@@ -7,9 +7,9 @@ export class Bullet extends GameObject{
       super(positionTop, positionLeft)
     this.turrelDirection = tank.turrelDirection;
     this.className = 'bullet';
-    this.$element = this.createElement(positionTop, positionLeft);    
-    this.tank = tank;
-    this.draw()
+    this.$element = this.createElement(positionTop, positionLeft);
+    this.tank = tank; 
+    this.draw()   
   }
 
   move = () => {   

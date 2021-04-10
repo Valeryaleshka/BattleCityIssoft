@@ -1,4 +1,5 @@
 import { EnemyTank } from "./enemyTank.js";
+import { tanks } from "./levelInit.js";
 
 export function initAI(){
     _createAI(0, 0)
@@ -6,6 +7,7 @@ export function initAI(){
 
 function _createAI(positionTop, positionLeft){
     const enemy = new EnemyTank(positionTop, positionLeft);
+    tanks.push(enemy);
     enemy.$element.style.transform = "rotate(180deg)";
     enemy.draw()
     let randomNumberDistance = 1;    
@@ -23,7 +25,8 @@ function _createAI(positionTop, positionLeft){
 }
 
 function _aiAction(enemy, randomNumberDistance){
-    const randomNumberDirection = Math.floor(Math.random() * 4);    
+    const randomNumberDirection = Math.floor(Math.random() * 4); 
+     
     
     _aiMove(enemy, randomNumberDirection, 0, randomNumberDistance)
     enemy.shot();
