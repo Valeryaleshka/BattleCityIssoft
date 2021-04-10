@@ -34,6 +34,7 @@ main {
     width: 624px;
     height: 624px;
     background-color: black;
+    overflow: hidden;
 }
 
 .legend {
@@ -85,11 +86,13 @@ main {
 .tank_player_1 {       
     background: url('./assets/images/tank_player1_up_c0_t1_s1.png') 100% 100% no-repeat;
     background-size: cover;
+    z-index: 2;
 }
 
 .tank_enemy {      
-    background: url('./assets/images/tank_power_down_c0_t1.png') 100% 100% no-repeat;
+    background: url('./assets/images/tank_basic_up_c0_t1.png') 100% 100% no-repeat;
     background-size: cover;
+    z-index: 2;
 }
 
 .flag {    
@@ -119,4 +122,17 @@ main {
     margin-right: 5px;
     margin-bottom: 5px;     
 }
+
+.bullet {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;  
+    background-color: gray;
+}
+
+.brickWall{
+    background: url('./assets/images/wall.png') 100% 100% no-repeat;
+    background-size: cover;
+    
 

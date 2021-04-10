@@ -4,6 +4,7 @@ export class EnemyTank extends Tank{
     constructor(positionTop, positionLeft){
         super(positionTop, positionLeft);
         this.className = this.className + 'enemy';  
-        this.element = this.createElement()      
+        this.$element = this.createElement()  
+        this.type = 'enemyTank'     
     }  
 }
