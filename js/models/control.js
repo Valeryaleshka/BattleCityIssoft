@@ -34,32 +34,24 @@ export function controlKeyHandle(e, keyState) {
 }
 
 export function handleTankFunctions(tank) {
-  if(tank.$element){
-    if (pressedSpace) {
-      tank.shot();
-    }
-    if (pressedKeys.length > 0) {
-      const key = pressedKeys[pressedKeys.length - 1];
-      if (key === KeyW) {
-        tank.moveUp();
-      }
-      if (key === KeyS) {
-        tank.moveDown();
-      }
-      if (key === KeyA) {
-        tank.moveLeft();
-      }
-      if (key === KeyD) {
-        tank.moveRight();
-      }
-    }    
-  }else{
-    tank.$element = tank.createElement();    
-    tank.positionTop = 576;
-    tank.positionLeft = 288;
-    tank.draw();
+  if (pressedSpace) {
+    tank.shot();
   }
- 
+  if (pressedKeys.length > 0) {
+    const key = pressedKeys[pressedKeys.length - 1];
+    if (key === KeyW) {
+      tank.moveUp();
+    }
+    if (key === KeyS) {
+      tank.moveDown();
+    }
+    if (key === KeyA) {
+      tank.moveLeft();
+    }
+    if (key === KeyD) {
+      tank.moveRight();
+    }
+  }
 }
 
 function _handleKey(keyCode, keyState) {
@@ -72,7 +64,7 @@ function _handleKey(keyCode, keyState) {
 }
 
 function _addKey(key) {
-  if (key === KeySPACE) {    
+  if (key === KeySPACE) {
     pressedSpace = true;
   } else {
     const index = pressedKeys.indexOf(key);

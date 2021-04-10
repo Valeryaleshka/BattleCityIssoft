@@ -19,6 +19,7 @@ export class GameObject {
         $element.style.left = this.positionLeft + 'px';
         return $element;
     }
+   
 
     draw = () =>{
         this.gameField.appendChild(this.$element)

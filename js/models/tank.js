@@ -3,7 +3,7 @@ import { GameObject } from "./gameObject.js";
 import { TANK_SPEED } from "./settings.js";
 import { Bullet } from "./bullet.js";
 import { map, tanks } from "./levelInit.js";
-import { checkColisions } from "./checkColisions.js";
+import { checkColisions, checkColisionsWithTank } from "./checkColisions.js";
 
 export class Tank extends GameObject {
   constructor(positionTop, positionLeft) {
@@ -14,30 +14,53 @@ export class Tank extends GameObject {
     this.$element = this.createElement();
     this.isShoted = false;
     this.bullet = null;
-  } 
+  }
 
   moveUp = () => {
-    this._changeTurrelDirection(UP);
-    this._move();
+    if (this.$element) {
+      this._changeTurrelDirection(UP);
+      this._move();
+    } else {
+      if ((this.type = "playerTank")) {
+        this.redraw(576, 288);
+      }
+    }
   };
 
   moveDown = () => {
-    this._changeTurrelDirection(DOWN);
-    this._move();
+    if (this.$element) {
+      this._changeTurrelDirection(DOWN);
+      this._move();
+    } else {
+      if ((this.type = "playerTank")) {
+        this.redraw(576, 288);
+      }
+    }
   };
 
   moveLeft = () => {
-    this._changeTurrelDirection(LEFT);
-    this._move();
+    if (this.$element) {
+      this._changeTurrelDirection(LEFT);
+      this._move();
+    } else {
+      if ((this.type = "playerTank")) {
+        this.redraw(576, 288);
+      }
+    }
   };
 
   moveRight = () => {
-    this._changeTurrelDirection(RIGHT);
-    this._move();
+    if (this.$element) {
+      this._changeTurrelDirection(RIGHT);
+      this._move();
+    } else {
+      if ((this.type = "playerTank")) {
+        this.redraw(576, 288);
+      }
+    }
   };
 
   shot = () => {
-    
     let walls;
     if (!this.isShoted) {
       this.isShoted = true;
@@ -54,67 +77,63 @@ export class Tank extends GameObject {
           walls = map.filter(
             (elem) =>
               elem.$element.offsetLeft + elem.$element.offsetWidth >=
-                bulletElement.offsetLeft +
-                  bulletElement.offsetWidth &&
+                bulletElement.offsetLeft + bulletElement.offsetWidth &&
               elem.$element.offsetLeft <= bulletElement.offsetLeft &&
               elem.$element.offsetTop + elem.$element.offsetHeight <=
                 bulletElement.offsetTop
           );
-          
+
           break;
         case DOWN:
           walls = map
             .filter(
               (elem) =>
                 elem.$element.offsetLeft + elem.$element.offsetWidth >=
-                  bulletElement.offsetLeft +
-                    bulletElement.offsetWidth &&
+                  bulletElement.offsetLeft + bulletElement.offsetWidth &&
                 elem.$element.offsetLeft <= bulletElement.offsetLeft &&
                 elem.$element.offsetTop + elem.$element.offsetHeight >=
-                  bulletElement.offsetTop +
-                    bulletElement.offsetHeight
+                  bulletElement.offsetTop + bulletElement.offsetHeight
             )
             .reverse();
-           
+
           break;
         case LEFT:
           walls = map.filter(
             (elem) =>
               elem.$element.offsetTop + elem.$element.offsetHeight >=
-                bulletElement.offsetTop +
-                  bulletElement.offsetHeight &&
+                bulletElement.offsetTop + bulletElement.offsetHeight &&
               elem.$element.offsetTop <= bulletElement.offsetTop &&
               elem.$element.offsetLeft + elem.$element.offsetWidth <=
                 bulletElement.offsetLeft
           );
-         
+
           break;
         case RIGHT:
           walls = map
             .filter(
               (elem) =>
                 elem.$element.offsetTop + elem.$element.offsetHeight >=
-                  bulletElement.offsetTop +
-                    bulletElement.offsetHeight &&
+                  bulletElement.offsetTop + bulletElement.offsetHeight &&
                 elem.$element.offsetTop <= bulletElement.offsetTop &&
                 elem.$element.offsetLeft >=
-                  bulletElement.offsetLeft +
-                    bulletElement.offsetWidth
+                  bulletElement.offsetLeft + bulletElement.offsetWidth
             )
             .reverse();
-            
+
           break;
-      }           
-      this._poof(walls);
+      }
+      const enemies = tanks.filter((elem) => elem.type != this.type);
+      this._poof(walls, enemies);
     }
   };
 
-  _poof = (walls) => {
-    const enemyTanks = tanks.filter(tank => tank.type != this.type)     
+  _poof = (walls, enemies) => {
+    const enemyTanks = tanks.filter((tank) => tank.type != this.type);
     if (this.bullet.$element) {
       this.bullet.move();
-      checkColisions(this.bullet, walls); 
-      requestAnimationFrame(() => this._poof(walls));
+      checkColisionsWithTank(this.bullet, enemies);
+      checkColisions(this.bullet, walls);
+      requestAnimationFrame(() => this._poof(walls, enemies));
     } else {
       this.bullet = null;
       this.isShoted = false;
@@ -122,12 +141,11 @@ export class Tank extends GameObject {
   };
 
   _move = () => {
-
     const element = this.$element;
-
-    if (this._checkTankBorderColision()) {
+    
+    if (this._checkTankNotOutOfBorder() && this._noWallCollision(map) && this._noWallCollision(tanks)) {
       switch (this.turrelDirection) {
-        case UP:  
+        case UP:
           element.style.top = element.offsetTop - TANK_SPEED + "px";
           this.positionTop = element.offsetTop;
           break;
@@ -136,21 +154,18 @@ export class Tank extends GameObject {
           this.positionTop = element.offsetTop;
           break;
         case LEFT:
-          element.style.left =
-            element.offsetLeft - TANK_SPEED + "px";
+          element.style.left = element.offsetLeft - TANK_SPEED + "px";
           this.positionLeft = element.offsetLeft;
           break;
         case RIGHT:
-          element.style.left =
-            element.offsetLeft + TANK_SPEED + "px";
+          element.style.left = element.offsetLeft + TANK_SPEED + "px";
           this.positionLeft = element.offsetLeft;
           break;
       }
     }
   };
 
-  _checkTankBorderColision = () => {
-
+  _checkTankNotOutOfBorder = () => {
     const element = this.$element;
 
     switch (this.turrelDirection) {
@@ -162,9 +177,7 @@ export class Tank extends GameObject {
           this.gameField.offsetHeight
         );
       case LEFT:
-        return (
-          element.offsetLeft - TANK_SPEED >= this.gameField.offsetLeft
-        );
+        return element.offsetLeft - TANK_SPEED >= this.gameField.offsetLeft;
       case RIGHT:
         return (
           element.offsetLeft + element.offsetWidth + TANK_SPEED <=
@@ -174,7 +187,6 @@ export class Tank extends GameObject {
   };
 
   _changeTurrelDirection = (direction) => {
-
     const element = this.$element;
 
     this.turrelDirection = direction;
@@ -191,6 +203,91 @@ export class Tank extends GameObject {
       case RIGHT:
         element.style.transform = "rotate(90deg)";
         break;
+    }
+  };
+
+  _noWallCollision = (walls) => {
+    const nearWalls = walls.filter((wall) => _isNearWall(wall, this));
+    const newWall = nearWalls.map((elem) =>
+      isWall(elem, this, this.turrelDirection)
+    );
+
+    return newWall.every(isBigEnough);
+
+    function isBigEnough(element, index, array) {
+      return element == false;
+    }
+
+    function _isNearWall(wall, tank) {
+      if (
+        wall.$element.offsetTop <
+          tank.$element.offsetTop + tank.$element.offsetHeight * 2 &&
+        wall.$element.offsetTop >
+          tank.$element.offsetTop - tank.$element.offsetHeight * 2 &&
+        wall.$element.offsetLeft >
+          tank.$element.offsetLeft - tank.$element.offsetWidth * 2 &&
+        wall.$element.offsetLeft <
+          tank.$element.offsetLeft + tank.$element.offsetWidth * 2
+      ) {
+        return true;
+      }
+      return false;
+    }
+
+    function isWall(elem, tank, turrel) {
+      let result = false;
+      switch (turrel) {
+        case UP:
+          if (
+            tank.$element.offsetTop ===
+              elem.$element.offsetTop + elem.$element.offsetHeight &&
+            tank.$element.offsetLeft <
+              elem.$element.offsetLeft + elem.$element.offsetWidth &&
+            tank.$element.offsetLeft + tank.$element.offsetWidth >
+              elem.$element.offsetLeft
+          ) {
+            result = true;
+          }
+          break;
+        case DOWN:
+          if (
+            tank.$element.offsetTop ===
+              elem.$element.offsetTop - elem.$element.offsetWidth &&
+            tank.$element.offsetLeft <
+              elem.$element.offsetLeft + elem.$element.offsetWidth &&
+            tank.$element.offsetLeft + tank.$element.offsetWidth >
+              elem.$element.offsetLeft
+          ) {
+            result = true;
+          }
+          break;
+        case LEFT:
+          if (
+            tank.$element.offsetLeft ===
+              elem.$element.offsetLeft + elem.$element.offsetHeight &&
+            tank.$element.offsetTop <
+              elem.$element.offsetTop + elem.$element.offsetHeight &&
+            tank.$element.offsetTop + tank.$element.offsetHeight >
+              elem.$element.offsetTop
+          ) {
+            result = true;
+          }
+          break;
+        case RIGHT:
+          if (
+            tank.$element.offsetLeft ===
+              elem.$element.offsetLeft - elem.$element.offsetHeight &&
+            tank.$element.offsetTop <
+              elem.$element.offsetTop + elem.$element.offsetHeight &&
+            tank.$element.offsetTop + tank.$element.offsetHeight >
+              elem.$element.offsetTop
+          ) {
+            result = true;
+          }
+          break;
+      }
+
+      return result;
     }
   };
 }

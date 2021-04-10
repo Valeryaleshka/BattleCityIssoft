@@ -2,7 +2,7 @@ import { BrickWall } from "./brickWall.js";
 import { LEVEL1, MAP_LEGEND } from "./map.js";
 
 export const map = []
-export const tanks = []
+export let tanks = []
 
 export function levelInit(){   
 
