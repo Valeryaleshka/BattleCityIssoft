@@ -9,7 +9,7 @@ export class PlayerTank extends Tank{
         this.type = 'playerTank'   
     }   
     
-    redraw = (positionTop, positionLeft) => {
+    newLive = (positionTop, positionLeft) => {
         this.positionTop = positionTop;
         this.positionLeft = positionLeft; 
         this.$element = this.createElement();

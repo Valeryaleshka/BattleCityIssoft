@@ -22,7 +22,7 @@ export class Tank extends GameObject {
       this._move();
     } else {
       if ((this.type = "playerTank")) {
-        this.redraw(576, 288);
+        this.newLive(576, 288);
       }
     }
   };
@@ -33,7 +33,7 @@ export class Tank extends GameObject {
       this._move();
     } else {
       if ((this.type = "playerTank")) {
-        this.redraw(576, 288);
+        this.newLive(576, 288);
       }
     }
   };
@@ -44,7 +44,7 @@ export class Tank extends GameObject {
       this._move();
     } else {
       if ((this.type = "playerTank")) {
-        this.redraw(576, 288);
+        this.newLive(576, 288);
       }
     }
   };
@@ -55,7 +55,7 @@ export class Tank extends GameObject {
       this._move();
     } else {
       if ((this.type = "playerTank")) {
-        this.redraw(576, 288);
+        this.newLive(576, 288);
       }
     }
   };
@@ -141,8 +141,7 @@ export class Tank extends GameObject {
   };
 
   _move = () => {
-    const element = this.$element;
-    
+    const element = this.$element;    
     if (this._checkTankNotOutOfBorder() && this._noWallCollision(map) && this._noWallCollision(tanks)) {
       switch (this.turrelDirection) {
         case UP:

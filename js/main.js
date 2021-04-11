@@ -19,15 +19,12 @@ function initialization() {
   initAI();  
   initAI();  
   initAI();  
-  initAI();  
-  initAI();  
-  initAI();  
-  initAI();  
-  initAI();
-  initAI();  
-  initAI();  
-  initAI();  
-  initAI();
+
+
+  //30
+ 
+  
+
 
   tank.draw();
 }
