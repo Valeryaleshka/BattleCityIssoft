@@ -1,16 +1,12 @@
 import {
   KeyA,
   KeyD,
-  KeyDOWN,
-  KeyLEFT,
-  KeyPRESS,
-  KeyRIGHT,
+  KeyPRESS,  
   KeyS,
   KeySPACE,
   KeyUNPRESS,
-  KeyUP,
   KeyW,
-} from "./keyboard.js";
+} from "../redux/keyboardButtons.js";
 
 const pressedKeys = [];
 let pressedSpace = false;

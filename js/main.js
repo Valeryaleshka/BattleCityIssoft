@@ -1,31 +1,28 @@
 import { PlayerTank } from "./models/playerTank.js";
 import { controlKeyHandle, handleTankFunctions } from "./models/control.js";
-import { KeyPRESS, KeyUNPRESS } from "./models/keyboard.js";
+import { KeyPRESS, KeyUNPRESS } from "./redux/keyboardButtons.js";
 import { initAI } from "./models/ai.js";
 import { levelInit, tanks } from "./models/levelInit.js";
+import { createStore } from "./redux/createStore.js";
+import { rootReducer } from "./redux/rootReducer.js";
 
 document.addEventListener("keydown", (e) => controlKeyHandle(e, KeyPRESS));
 document.addEventListener("keyup", (e) => controlKeyHandle(e, KeyUNPRESS));
-document.addEventListener("click", (e) => console.log(tanks));
+document.addEventListener("click", () => console.log(store.getState()));
 
-const tank = new PlayerTank(576, 288);
+let store = createStore(rootReducer);
+var tank = new PlayerTank(576, 288, store);
 tanks.push(tank);
 
 initialization();
 
 function initialization() {
-  levelInit();
+  levelInit(store);
 
-  initAI();  
-  initAI();  
-  initAI();  
+ //initAI(store);   
 
-
-  //30
+  //60
  
-  
-
-
   tank.draw();
 }
 

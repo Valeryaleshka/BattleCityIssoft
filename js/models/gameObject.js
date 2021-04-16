@@ -1,11 +1,16 @@
+import { BLOCK_SIZE, BULLET_SIZE } from "./settings.js";
+
 export class GameObject {
-    constructor(positionTop, positionLeft){
-        this.positionTop = positionTop;
-        this.positionLeft = positionLeft;        
+    constructor(positionTop, positionLeft, store){
+        this.borderTop = positionTop;
+        this.borderLeft = positionLeft; 
+        this.borderBottom;
+        this.borderRight;       
         this.gameField = document.getElementById('gamefield');
         this.className = 'game_object';
         this.$element;  
-        this.type = 'object';            
+        this.type = 'object';      
+        this.store = store;      
     } 
     
     addElementToField = () => {
@@ -15,9 +20,26 @@ export class GameObject {
     createElement = () => {
         const $element = document.createElement('div')
         $element.className = this.className;
-        $element.style.top = this.positionTop + 'px';
-        $element.style.left = this.positionLeft + 'px';
+        $element.style.top = this.borderTop + 'px';
+        $element.style.left = this.borderLeft + 'px';
+        if(this.type === 'bullet'){
+            this.borderBottom = this.borderTop + BULLET_SIZE;
+        this.borderRight = this.borderLeft + BULLET_SIZE;
+        }else{
+            this.borderBottom = this.borderTop + BLOCK_SIZE;
+            this.borderRight = this.borderLeft + BLOCK_SIZE;
+        }
+        
         return $element;
+    }
+
+    moveElement(positionX, positionY){        
+        this.borderTop = this.borderTop + positionY;
+        this.borderBottom = this.borderBottom + positionY;
+        this.borderLeft = this.borderLeft + positionX;
+        this.borderRight = this.borderRight + positionX;
+        this.$element.style.top = this.borderTop  + 'px';
+        this.$element.style.left = this.borderLeft + 'px';
     }
    
 

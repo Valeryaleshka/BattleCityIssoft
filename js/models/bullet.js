@@ -1,4 +1,4 @@
-import { UP, DOWN, RIGHT, LEFT } from "./directions.js";
+import { UP, DOWN, RIGHT, LEFT } from "./../redux/types.js";
 import { GameObject } from "./gameObject.js";
 import { BULLET_SPEED } from "./settings.js";
 
@@ -7,6 +7,7 @@ export class Bullet extends GameObject{
       super(positionTop, positionLeft)
     this.turrelDirection = tank.turrelDirection;
     this.className = 'bullet';
+    this.type = 'bullet';
     this.$element = this.createElement(positionTop, positionLeft);
     this.tank = tank; 
     this.draw()   
@@ -15,21 +16,17 @@ export class Bullet extends GameObject{
   move = () => {   
     if(this._checkBulletBorederColision()){
       switch (this.turrelDirection) {
-        case UP:         
-          this.$element.style.top = this.$element.offsetTop - BULLET_SPEED + "px";    
-          this.positionTop = this.$element.offsetTop;              
+        case UP:
+          this.moveElement(0, BULLET_SPEED * -1);
           break;
-        case DOWN:          
-          this.$element.style.top = this.$element.offsetTop + BULLET_SPEED + "px";  
-          this.positionTop =  this.$element.offsetTop;            
+        case DOWN:
+          this.moveElement(0, BULLET_SPEED);
           break;
-        case LEFT:         
-          this.$element.style.left = this.$element.offsetLeft - BULLET_SPEED + "px";  
-          this.positionLeft =  this.$element.offsetLeft;            
+        case LEFT:
+          this.moveElement(BULLET_SPEED * -1, 0);
           break;
-        case RIGHT:          
-          this.$element.style.left = this.$element.offsetLeft + BULLET_SPEED + "px"; 
-          this.positionLeft =  this.$element.offsetLeft;          
+        case RIGHT:
+          this.moveElement(BULLET_SPEED, 0);
           break;
       }
     }else{      
@@ -41,13 +38,13 @@ export class Bullet extends GameObject{
   _checkBulletBorederColision = () => {    
     switch (this.turrelDirection) {
       case UP:
-        return this.$element.offsetTop > 0;
+        return this.borderTop > 0;
       case DOWN:          
-        return this.$element.offsetTop < this.gameField.offsetHeight;
+        return this.borderBottom < this.gameField.offsetHeight;
       case LEFT:
-        return this.$element.offsetLeft > 0;
+        return this.borderLeft > 0;
       case RIGHT:          
-      return this.$element.offsetLeft < this.gameField.offsetWidth;
+      return this.borderRight < this.gameField.offsetWidth;
     }
   }
 }
