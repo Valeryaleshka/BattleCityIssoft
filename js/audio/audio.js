@@ -1,9 +1,9 @@
-const borderAudio = "/assets/sounds/wallHit.ogg";
-const startAudio = "/assets/sounds/gamestart.ogg";
-const gameoverAudio = "/assets/sounds/gameover.ogg";
-const shotAudio = "/assets/sounds/shot.mp3";
-const explosionAudio = "/assets/sounds/dead_tank.mp3";
-const wallExplosionAudio = "/assets/sounds/wallHit.ogg";
+const borderAudio = "assets/sounds/wallHit.ogg";
+const startAudio = "assets/sounds/gamestart.ogg";
+const gameoverAudio = "assets/sounds/gameover.ogg";
+const shotAudio = "assets/sounds/shot.mp3";
+const explosionAudio = "assets/sounds/dead_tank.mp3";
+const wallExplosionAudio = "assets/sounds/wallHit.ogg";
 
 export function shotSound() {
   _playSound(shotAudio);
@@ -31,8 +31,6 @@ export function gameOverSound() {
 
 function _playSound(src) {
   const audio = new Audio(src);
-  audio.src = window.location.origin + src;
+  audio.src = window.location.href + src;
   audio.play();
-  console.log(window.location.origin + src);
-  console.log(window.location.origin);
 }
