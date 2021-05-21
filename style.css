@@ -138,6 +138,10 @@ main {
   color: white;
 }
 
+.gameScreen-item {
+  margin: 10px 0;
+}
+
 .hidden {
   display: none;
 }
@@ -157,7 +161,11 @@ ul {
 }
 
 .gameLogo {
-  font-size: 50px;
+  background: url("./assets/images/battle_city.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 376px;
+  height: 176px;
 }
 
 .level_number {
