@@ -1,4 +1,4 @@
-const borderAudio = "BattleCityIssoft/assets/sounds/wallHit.ogg";
+const borderAudio = "/assets/sounds/gamestart.ogg";
 const startAudio = "./../../assets/sounds/gamestart.ogg";
 const gameoverAudio = "./../../assets/sounds/gameover.ogg";
 const shotAudio = "./../../assets/sounds/shot.mp3";
@@ -31,5 +31,6 @@ export function gameOverSound() {
 
 function _playSound(src) {
   const audio = new Audio(src);
+  audio.src = src;
   audio.play();
 }
