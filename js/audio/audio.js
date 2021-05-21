@@ -33,4 +33,6 @@ function _playSound(src) {
   const audio = new Audio(src);
   audio.src = window.location.origin + src;
   audio.play();
+  console.log(window.location.origin + src);
+  console.log(window.location.origin);
 }
