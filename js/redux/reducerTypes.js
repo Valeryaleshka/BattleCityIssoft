@@ -1,0 +1,9 @@
+export const ADD_TANK = "ADD_TANK";
+export const INIT = "INIT";
+export const ADD_WALL = "ADD_WALL";
+export const DELETE_TANK = "DELETE_TANK";
+export const DELETE_WALL = "DELETE_WALL";
+export const DECREMENT_ENEMIES_LIVE = "DECREMENT_ENEMIES_LIVE";
+export const GAME_OVER = "GAME_OVER";
+export const RESTART = "RESTART";
+export const PAUSE = "PAUSE";

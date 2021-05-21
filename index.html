@@ -6,56 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./assets/images/battle_city.png" type="image/png">
     <title>BattleCity</title>
 </head>
 
 <body id='body'>
-    <main id='main'>
-        <div class='game'>
-            <section class='gamefield' id='gamefield'>
-                <!--<div class="game_object tank_enemy" style="top:0; left:0"></div>
-                <div class="game_object tank_enemy" style="top:0; left: calc(100% / 13 * 6)"></div>
-                <div class="game_object tank_enemy" style="top:0; right:0"></div>-->
+    <main id='main'  class="hidden">
+        <div class='game '>
+            <section class='gamefield' id='gamefield'>               
             </section>
             <section class='legend' id='legend'>
-                <div class="legend_enemies_wrapper">
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div class="enemies_live"></div>
-                    <div>ylala</div>
+                <div class="legend_enemies_wrapper" id='legend_enemies_wrapper'>                 
                 </div>
-                <div class="legend_players_wrapper">
-                    <div class="players_live"></div>
-                    <div class="players_live"></div>
-                    <div class="players_live"></div>
-                    <div class="players_live"></div>s
+                <div class="legend_players_wrapper" id="legend_players_wrapper">                    
                 </div>
                 <div class="legend_level_wrapper">
                     <div class="flag"></div>
-                    <p class="level_number" id="level_number"></p>
+                    <p class="level_number" id="level_number"> 1</p>
                 </div>
             </section>
         </div>
     </main>
-    <script type="module" src="./js/main.js"></script>
+    <div id="gameOverScreen" class="gameOverScreen hidden">
+        <p id="gameOverText">GameOver</p>
+        <button class="restart">Restart</button>
+    </div>
+    <div id="startGameScreen" class="gameOverScreen">
+        <p class='gameLogo'>BattleCity</p>
+        <button class="start">Start</button>
+        <ul>            
+            <li>Controls: W, A, S, D</li>           
+            <li>Fire: Space</li>
+        </ul>
+    </div>
+    <script type="module" src="/js/main.js"></script>
 </body>
 
 </html>

@@ -1,10 +1,10 @@
-import { UP, DOWN, RIGHT, LEFT } from "./../redux/types.js";
-import { GameObject } from "./gameObject.js";
-import { TANK_SPEED } from "./settings.js";
-import { Bullet } from "./bullet.js";
-import { map, tanks } from "./levelInit.js";
-import { checkColisions, checkColisionsWithTank } from "./checkColisions.js";
-
+import { UP, DOWN, RIGHT, LEFT, PLAYER_TANK } from "/js/models/modelTypes.js";
+import { GameObject } from "/js/models/gameObject.js";
+import { Bullet } from "/js/models/bullet.js";
+import { BLOCK_SIZE, BULLET_SIZE, TANK_SPEED } from "/js/settings/gameSettings.js";
+import { checkColisions } from "/js/functions/checkColisions.js";
+import { deleteTank, restart } from "/js/redux/actionCreater.js";
+import { borderExplosionSound, shotSound } from "/js/audio/audio.js";
 export class Tank extends GameObject {
   constructor(positionTop, positionLeft, store) {
     super(positionTop, positionLeft, store);
@@ -17,105 +17,90 @@ export class Tank extends GameObject {
   }
 
   moveUp = () => {
-    if (this.$element) {
-      this._changeTurrelDirection(UP);
-      this._move();
-    } else {
-      if (this.type === "playerTank") {
-        this.newLive(576, 288);
-      }
-    }
+    this._changeTurrelDirection(UP);
+    this._move();
   };
 
   moveDown = () => {
-    if (this.$element) {
-      this._changeTurrelDirection(DOWN);
-      this._move();
-    } else {
-      if ((this.type = "playerTank")) {
-        this.newLive(576, 288);
-      }
-    }
+    this._changeTurrelDirection(DOWN);
+    this._move();
   };
 
   moveLeft = () => {
-    if (this.$element) {
-      this._changeTurrelDirection(LEFT);
-      this._move();
-    } else {
-      if ((this.type = "playerTank")) {
-        this.newLive(576, 288);
-      }
-    }
+    this._changeTurrelDirection(LEFT);
+    this._move();
   };
 
   moveRight = () => {
-    if (this.$element) {
-      this._changeTurrelDirection(RIGHT);
-      this._move();
-    } else {
-      if ((this.type = "playerTank")) {
-        this.newLive(576, 288);
-      }
-    }
+    this._changeTurrelDirection(RIGHT);
+    this._move();
   };
 
   shot = () => {
-    if (this.type === "playerTank") {
-    }
-    let walls;
-    if (!this.isShoted) {
-      this.isShoted = true;
-      this.bullet = new Bullet(this.borderTop + 21, this.borderLeft + 21, this);
+    if (this.$element) {
+      const storeWalls = this.store.getState().walls;
+      let walls;
+      if (!this.isShoted) {
+        if (this.type === PLAYER_TANK) {
+          shotSound();
+        }
 
-      switch (this.turrelDirection) {
-        case UP:
-          walls = map.filter(
-            (elem) =>
-              elem.borderRight > this.bullet.borderLeft &&
-              elem.borderLeft < this.bullet.borderRight &&
-              elem.borderBottom <= this.bullet.borderTop
-          );
-          break;
-        case DOWN:
-          walls = map
-            .filter(
+        this.isShoted = true;
+        this.bullet = new Bullet(
+          this.borderTop + BLOCK_SIZE / 2 - BULLET_SIZE / 2,
+          this.borderLeft + BLOCK_SIZE / 2 - BULLET_SIZE / 2,
+          this
+        );
+
+        switch (this.turrelDirection) {
+          case UP:
+            walls = storeWalls.filter(
               (elem) =>
                 elem.borderRight > this.bullet.borderLeft &&
                 elem.borderLeft < this.bullet.borderRight &&
-                elem.borderTop >= this.bullet.borderBottom
-            )
-            .reverse();
-          break;
-        case LEFT:
-          walls = map.filter(
-            (elem) =>
-              elem.borderBottom > this.bullet.borderTop &&
-              elem.borderTop < this.bullet.borderBottom &&
-              elem.borderRight <= this.bullet.borderLeft
-          );
-          break;
-        case RIGHT:
-          walls = map
-            .filter(
+                elem.borderBottom <= this.bullet.borderTop
+            );
+            break;
+          case DOWN:
+            walls = storeWalls
+              .filter(
+                (elem) =>
+                  elem.borderRight > this.bullet.borderLeft &&
+                  elem.borderLeft < this.bullet.borderRight &&
+                  elem.borderTop >= this.bullet.borderBottom
+              )
+              .reverse();
+            break;
+          case LEFT:
+            walls = storeWalls.filter(
               (elem) =>
                 elem.borderBottom > this.bullet.borderTop &&
                 elem.borderTop < this.bullet.borderBottom &&
-                elem.borderRight >= this.bullet.borderLeft
-            )
-            .reverse();
-          break;
+                elem.borderRight <= this.bullet.borderLeft
+            );
+            break;
+          case RIGHT:
+            walls = storeWalls
+              .filter(
+                (elem) =>
+                  elem.borderBottom > this.bullet.borderTop &&
+                  elem.borderTop < this.bullet.borderBottom &&
+                  elem.borderRight >= this.bullet.borderLeft
+              )
+              .reverse();
+            break;
+        }
+        const enemies = this.store.getState().tanks.filter((elem) => elem.type != this.type);
+        this._poof(walls, enemies);
       }
-      const enemies = tanks.filter((elem) => elem.type != this.type);
-      this._poof(walls, enemies);
     }
   };
 
-  _poof = (walls, enemies) => {    
+  _poof = (walls, enemies) => {
     if (this.bullet.$element) {
       this.bullet.move();
-      checkColisionsWithTank(this.bullet, enemies);
-      checkColisions(this.bullet, walls);
+      checkColisions(this.bullet, enemies, this.store);
+      checkColisions(this.bullet, walls, this.store);
       requestAnimationFrame(() => this._poof(walls, enemies));
     } else {
       this.bullet = null;
@@ -126,8 +111,8 @@ export class Tank extends GameObject {
   _move = () => {
     if (
       this._checkTankNotOutOfBorder() &&
-      this._noWallCollision(map) &&
-      this._noWallCollision(tanks)
+      this._noWallCollision(this.store.getState().walls) &&
+      this._noWallCollision(this.store.getState().tanks)
     ) {
       switch (this.turrelDirection) {
         case UP:
@@ -180,9 +165,7 @@ export class Tank extends GameObject {
 
   _noWallCollision = (walls) => {
     const nearWalls = walls.filter((wall) => _isNearWall(wall, this));
-    const newWall = nearWalls.map((elem) =>
-      isWall(elem, this, this.turrelDirection)
-    );
+    const newWall = nearWalls.map((elem) => isWall(elem, this, this.turrelDirection));
 
     return newWall.every(isBigEnough);
 
@@ -244,5 +227,11 @@ export class Tank extends GameObject {
       }
       return result;
     }
+  };
+
+  deleteElement = () => {
+    this.$element.remove();
+    this.$element = null;
+    this.store.dispatch(deleteTank(this));
   };
 }

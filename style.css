@@ -1,138 +1,167 @@
 body {
-    display: flex;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    background-color: black;
-    height: 100vh;
-    align-items: center;    
+  display: flex;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  height: 100vh;
+  align-items: center;
 }
 
-
 main {
-    position: relative;
-    margin: auto;
-    height: 700px;
-    width: 850px;
-    background-color: rgb(70, 70, 70);
-    
+  position: relative;
+  margin: auto;
+  height: 700px;
+  width: 850px;
+  background-color: rgb(70, 70, 70);
 }
 
 .game {
-    position: relative;
-    top: 38px;
-    left: 55px;
-    height: 624px;
-    width: 800px;
+  position: relative;
+  top: 38px;
+  left: 55px;
+  height: 624px;
+  width: 800px;
 }
 
 .gamefield {
-    position: absolute;
-    display: flex;    
-    top: 0px;
-    left: 0px;
-    width: 624px;
-    height: 624px;
-    background-color: black;
-    overflow: hidden;
+  position: absolute;
+  display: flex;
+  top: 0px;
+  left: 0px;
+  width: 624px;
+  height: 624px;
+  background-color: black;
+  overflow: hidden;
 }
 
 .legend {
-    position: absolute;
-    height: 624px;
-    width: 70px;
-    top: 38px;
-    right: 45px; 
-    display: flex;
-    flex-direction: column;
-      
+  position: absolute;
+  height: 624px;
+  width: 70px;
+  top: 38px;
+  right: 45px;
+  display: flex;
+  flex-direction: column;
 }
 
-.legend_enemies_wrapper {    
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
-    width: 100%;
-    height: 60%;
-    align-content: flex-start;
+.legend_enemies_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+  height: 60%;
+  align-content: flex-start;
 }
 
 .legend_players_wrapper {
-    display: flex; 
-    flex-wrap: wrap;
-    position: relative;
-    width: 100%;
-    height: 20%;
-    align-content: flex-start;
-    
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+  height: 20%;
+  align-content: flex-start;
 }
 
 .legend_level_wrapper {
-    display: flex;
-    position: relative;
-    width: 100%;
-    height: 20%;
-    
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 20%;
 }
 
 .game_object {
-    position: absolute;    
-    height: 48px;
-    width: 48px;    
+  position: absolute;
+  height: 48px;
+  width: 48px;
 }
 
-
-
-.tank_player_1 {       
-    background: url('./assets/images/tank_player1_up_c0_t1_s1.png') 100% 100% no-repeat;
-    background-size: cover;
-    z-index: 2;
+.tank_player_1 {
+  background: url("./assets/images/tank_player1_up_c0_t1_s1.png") 100% 100% no-repeat;
+  background-size: cover;
+  z-index: 2;
 }
 
-.tank_enemy {      
-    background: url('./assets/images/tank_basic_up_c0_t1.png') 100% 100% no-repeat;
-    background-size: cover;
-    z-index: 2;
+.tank_enemy {
+  background: url("./assets/images/tank_basic_up_c0_t1.png") 100% 100% no-repeat;
+  background-size: cover;
+  z-index: 2;
 }
 
-.flag {    
-    background: url('./assets/images/flag.png') 100% 100% no-repeat;
-    background-size:contain ;
-    width: 40px;
-    height: 40px;
-   
+.flag {
+  background: url("./assets/images/flag.png") 100% 100% no-repeat;
+  background-size: contain;
+  width: 40px;
+  height: 40px;
 }
 
-.players_live{
-    position: relative;
-    background: url('./assets/images/lives.png') 100% 100% no-repeat;
-    background-size: cover;
-    width: 25px;
-    height: 25px;
-    margin-right: 5px;
-    margin-bottom: 5px;   
+.players_live {
+  position: relative;
+  background: url("./assets/images/lives.png") 100% 100% no-repeat;
+  background-size: cover;
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
-.enemies_live{
-    position: relative;
-    background: url('./assets/images/enemy.png') 100% 100% no-repeat;
-    background-size: cover;
-    width: 25px;
-    height: 25px;
-    margin-right: 5px;
-    margin-bottom: 5px;     
+.enemies_live {
+  position: relative;
+  background: url("./assets/images/enemy.png") 100% 100% no-repeat;
+  background-size: cover;
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .bullet {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;  
-    background-color: gray;
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: gray;
 }
 
-.brickWall{
-    background: url('./assets/images/wall.png') 100% 100% no-repeat;
-    background-size: cover;
+.brickWall {
+  background: url("./assets/images/wall.png") 100% 100% no-repeat;
+  background-size: cover;
 }
 
+.gameOverScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+.mainmenu {
+  display: flex;
+}
+
+li {
+  list-style-type: none;
+  text-align: center;
+  margin-top: 10px;
+}
+ul {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.gameLogo {
+  font-size: 50px;
+}
+
+.level_number {
+  color: white;
+  font-size: 20px;
+  padding-left: 10px;
+}

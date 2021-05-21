@@ -1,4 +1,0 @@
-export const TANK_SPEED = 2;
-export const BULLET_SPEED = 12;
-export const BLOCK_SIZE = 48;
-export const BULLET_SIZE = 6;
