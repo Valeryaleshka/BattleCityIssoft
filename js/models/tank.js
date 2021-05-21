@@ -1,10 +1,10 @@
-import { UP, DOWN, RIGHT, LEFT, PLAYER_TANK } from "/js/models/modelTypes.js";
-import { GameObject } from "/js/models/gameObject.js";
-import { Bullet } from "/js/models/bullet.js";
-import { BLOCK_SIZE, BULLET_SIZE, TANK_SPEED } from "/js/settings/gameSettings.js";
-import { checkColisions } from "/js/functions/checkColisions.js";
-import { deleteTank, restart } from "/js/redux/actionCreater.js";
-import { borderExplosionSound, shotSound } from "/js/audio/audio.js";
+import { UP, DOWN, RIGHT, LEFT, PLAYER_TANK } from "./modelTypes.js";
+import { GameObject } from "./gameObject.js";
+import { Bullet } from "./bullet.js";
+import { BLOCK_SIZE, BULLET_SIZE, TANK_SPEED } from "./../settings/gameSettings.js";
+import { checkColisions } from "./../functions/checkColisions.js";
+import { deleteTank, restart } from "./../redux/actionCreater.js";
+import { borderExplosionSound, shotSound } from "./../audio/audio.js";
 export class Tank extends GameObject {
   constructor(positionTop, positionLeft, store) {
     super(positionTop, positionLeft, store);

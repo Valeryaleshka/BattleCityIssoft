@@ -1,7 +1,7 @@
-import { UP, DOWN, RIGHT, LEFT, PLAYER_TANK } from "/js/models/modelTypes.js";
-import { GameObject } from "/js/models/gameObject.js";
-import { BULLET_SPEED, REVERSE } from "/js/settings/gameSettings.js";
-import { borderExplosionSound } from "/js/audio/audio.js";
+import { UP, DOWN, RIGHT, LEFT, PLAYER_TANK } from "./modelTypes.js";
+import { GameObject } from "./gameObject.js";
+import { BULLET_SPEED, REVERSE } from "./../settings/gameSettings.js";
+import { borderExplosionSound } from "./../audio/audio.js";
 
 export class Bullet extends GameObject {
   constructor(positionTop, positionLeft, tank) {

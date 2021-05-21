@@ -1,4 +1,4 @@
-import { BLOCK_SIZE, BULLET_SIZE } from "/js/settings/gameSettings.js";
+import { BLOCK_SIZE, BULLET_SIZE } from "./../settings/gameSettings.js";
 
 export class GameObject {
   constructor(positionTop, positionLeft, store) {

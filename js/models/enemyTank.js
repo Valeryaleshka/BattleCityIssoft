@@ -1,6 +1,6 @@
-import { Tank } from "/js/models/tank.js";
-import { deleteTank } from "/js/redux/actionCreater.js";
-import { ENEMY_TANK } from "/js/models/modelTypes.js";
+import { Tank } from "./tank.js";
+import { deleteTank } from "./../redux/actionCreater.js";
+import { ENEMY_TANK } from "./modelTypes.js";
 
 export class EnemyTank extends Tank {
   constructor(positionTop, positionLeft, store) {

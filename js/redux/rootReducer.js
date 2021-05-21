@@ -8,8 +8,8 @@ import {
   GAME_OVER,
   RESTART,
   PAUSE,
-} from "/js/redux/reducerTypes.js";
-import { PLAYER_TANK } from "/js/models/modelTypes.js";
+} from "./reducerTypes.js";
+import { PLAYER_TANK } from "./../models/modelTypes.js";
 
 export function rootReducer(state, action) {
   if (action.type === INIT) {

@@ -1,5 +1,5 @@
-import { PLAYER_TANK } from "/js/models/modelTypes.js";
-import { KeyA, KeyD, KeyPRESS, KeyS, KeySPACE, KeyUNPRESS, KeyW } from "/js/settings/keyboardButtons.js";
+import { PLAYER_TANK } from "./../models/modelTypes.js";
+import { KeyA, KeyD, KeyPRESS, KeyS, KeySPACE, KeyUNPRESS, KeyW } from "./../settings/keyboardButtons.js";
 
 const pressedKeys = [];
 let pressedSpace = false;

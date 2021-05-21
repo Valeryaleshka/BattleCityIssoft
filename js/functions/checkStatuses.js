@@ -1,7 +1,7 @@
-import { gameOverSound } from "/js/audio/audio.js";
-import { ENEMY_TANK } from "/js/models/modelTypes.js";
-import { gameOver } from "/js/redux/actionCreater.js";
-import { toggleGameOverScreen } from "/js/functions/viewFunctions.js";
+import { gameOverSound } from "./../audio/audio.js";
+import { ENEMY_TANK } from "./../models/modelTypes.js";
+import { gameOver } from "./../redux/actionCreater.js";
+import { toggleGameOverScreen } from "./../functions/viewFunctions.js";
 
 export function checkIsGameOver(store) {
   setTimeout(() => checkGameOver(store), 2000);

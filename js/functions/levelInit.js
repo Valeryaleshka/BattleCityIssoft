@@ -1,10 +1,10 @@
-import { add_wall } from "/js/redux/actionCreater.js";
-import { BrickWall } from "/js/models/brickWall.js";
-import { MAP_LEGEND } from "/js/models/map.js";
-import { BLOCK_SIZE } from "/js/settings/gameSettings.js";
-import { PlayerTank } from "/js/models/playerTank.js";
-import { initAI } from "/js/functions/ai.js";
-import { startSound } from "/js/audio/audio.js";
+import { add_wall } from "./../redux/actionCreater.js";
+import { BrickWall } from "./../models/brickWall.js";
+import { MAP_LEGEND } from "./../models/map.js";
+import { BLOCK_SIZE } from "./../settings/gameSettings.js";
+import { PlayerTank } from "./../models/playerTank.js";
+import { initAI } from "./../functions/ai.js";
+import { startSound } from "./../audio/audio.js";
 
 export const tanks = [];
 

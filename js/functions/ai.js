@@ -1,6 +1,7 @@
-import { add_tank } from "/js/redux/actionCreater.js";
-import { EnemyTank } from "/js/models/enemyTank.js";
-import { decrementEnemyTank } from "/js/redux/actionCreater.js";
+import { add_tank } from "./../redux/actionCreater.js";
+import { EnemyTank } from "./../models/enemyTank.js";
+import { ENEMY_TANK } from "./../models/modelTypes.js";
+import { decrementEnemyTank } from "./../redux/actionCreater.js";
 import {
   ENEMY_TOP_POSITION,
   ENEMY_CENTER_POSITION,
@@ -9,8 +10,7 @@ import {
   MAXIMUM_ENEMIES_ON_GAMEFIELD,
   NUMBER_OF_ENEMY_STEPS_PER_MOVE,
   TIME_FOR_1_STEP,
-} from "/js/settings/gameSettings.js";
-import { ENEMY_TANK } from "/js/models/modelTypes.js";
+} from "./../settings/gameSettings.js";
 
 let positionIndex = 0;
 const positions = [ENEMY_LEFT_POSITION, ENEMY_CENTER_POSITION, ENEMY_RIGHT_POSITION];

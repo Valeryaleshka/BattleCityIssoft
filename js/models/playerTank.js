@@ -1,7 +1,7 @@
-import { Tank } from "/js/models/tank.js";
-import { BLOCK_SIZE } from "/js/settings/gameSettings.js";
-import { add_tank } from "/js/redux/actionCreater.js";
-import { PLAYER_TANK } from "/js/models/modelTypes.js";
+import { Tank } from "./tank.js";
+import { BLOCK_SIZE } from "./../settings/gameSettings.js";
+import { add_tank } from "./../redux/actionCreater.js";
+import { PLAYER_TANK } from "./modelTypes.js";
 
 export class PlayerTank extends Tank {
   constructor(positionTop, positionLeft, store) {

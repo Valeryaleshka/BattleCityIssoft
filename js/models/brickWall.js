@@ -1,6 +1,6 @@
-import { BRICK_WALL } from "/js/models/modelTypes.js";
-import { deleteWall } from "/js/redux/actionCreater.js";
-import { GameObject } from "/js/models/gameObject.js";
+import { BRICK_WALL } from "./modelTypes.js";
+import { deleteWall } from "./../redux/actionCreater.js";
+import { GameObject } from "./gameObject.js";
 
 export class BrickWall extends GameObject {
   constructor(positionTop, positionLeft, store) {
