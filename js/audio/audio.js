@@ -1,4 +1,4 @@
-const borderAudio = "assets/sounds/wallHit.ogg";
+const borderAudio = "assets/sounds/steel.ogg";
 const startAudio = "assets/sounds/gamestart.ogg";
 const gameoverAudio = "assets/sounds/gameover.ogg";
 const shotAudio = "assets/sounds/shot.mp3";
