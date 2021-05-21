@@ -1,13 +1,13 @@
-import { controlKeyHandle, handlePlayerTankFunctions } from "/js/settings/control.js";
-import { toggleStartScreen, toggleGameOverScreen } from "/js/functions/viewFunctions.js";
-import { checkIsGameOver, gameOverFunction } from "/js/functions/checkStatuses.js";
-import { levelInit } from "/js/functions/levelInit.js";
-import { KeyPRESS, KeyUNPRESS } from "/js/settings/keyboardButtons.js";
-import { createStore } from "/js/redux/createStore.js";
-import { rootReducer } from "/js/redux/rootReducer.js";
-import { subscribe } from "/js/models/subscribers.js";
-import { restart } from "/js/redux/actionCreater.js";
-import { LEVEL1 } from "/js/models/map.js";
+import { controlKeyHandle, handlePlayerTankFunctions } from "./settings/control.js";
+import { toggleStartScreen, toggleGameOverScreen } from "./functions/viewFunctions.js";
+import { checkIsGameOver, gameOverFunction } from "./functions/checkStatuses.js";
+import { levelInit } from "./functions/levelInit.js";
+import { KeyPRESS, KeyUNPRESS } from "./settings/keyboardButtons.js";
+import { createStore } from "./redux/createStore.js";
+import { rootReducer } from "./redux/rootReducer.js";
+import { subscribe } from "./models/subscribers.js";
+import { restart } from "./redux/actionCreater.js";
+import { LEVEL1 } from "./models/map.js";
 
 document.addEventListener("keydown", (e) => controlKeyHandle(e, KeyPRESS));
 document.addEventListener("keyup", (e) => controlKeyHandle(e, KeyUNPRESS));
