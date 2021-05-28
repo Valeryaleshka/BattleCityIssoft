@@ -31,6 +31,7 @@ export function gameOverSound() {
 
 function _playSound(src) {
   const audio = new Audio(src);
+  audio.volume = 0.2;
   audio.src = window.location.href + src;
   audio.play();
 }
