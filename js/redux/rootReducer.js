@@ -10,29 +10,16 @@ import {
   PAUSE,
 } from "./reducerTypes.js";
 import { PLAYER_TANK } from "./../models/modelTypes.js";
+import { INITIAL_PARAMETERS } from "../settings/gameSettings.js";
 
 export function rootReducer(state, action) {
   if (action.type === INIT) {
-    return {
-      tanks: [],
-      walls: [],
-      enemiesCount: 21,
-      playerLives: 3,
-      isPaused: false,
-      IS_GAME_OVER: false,
-    };
+    return INITIAL_PARAMETERS;
   }
 
   if (action.type === RESTART) {
     document.querySelector("#gamefield").innerHTML = "";
-    return {
-      tanks: [],
-      walls: [],
-      enemiesCount: 21,
-      playerLives: 3,
-      isPaused: false,
-      IS_GAME_OVER: false,
-    };
+    return INITIAL_PARAMETERS;
   }
 
   if (action.type === PAUSE) {

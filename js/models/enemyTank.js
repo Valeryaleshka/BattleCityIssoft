@@ -1,5 +1,4 @@
 import { Tank } from "./tank.js";
-import { deleteTank } from "./../redux/actionCreater.js";
 import { ENEMY_TANK } from "./modelTypes.js";
 
 export class EnemyTank extends Tank {
@@ -9,10 +8,4 @@ export class EnemyTank extends Tank {
     this.$element = this.createElement();
     this.type = ENEMY_TANK;
   }
-
-  deleteElement = () => {
-    this.$element.remove();
-    this.$element = null;
-    this.store.dispatch(deleteTank(this));
-  };
 }

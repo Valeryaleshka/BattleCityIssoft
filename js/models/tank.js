@@ -1,10 +1,10 @@
 import { UP, DOWN, RIGHT, LEFT, PLAYER_TANK } from "./modelTypes.js";
 import { GameObject } from "./gameObject.js";
 import { Bullet } from "./bullet.js";
-import { BLOCK_SIZE, BULLET_SIZE, TANK_SPEED } from "./../settings/gameSettings.js";
+import { BLOCK_SIZE, BULLET_SIZE, GAMEFIELD_SIZE, TANK_SPEED } from "./../settings/gameSettings.js";
 import { checkColisions } from "./../functions/checkColisions.js";
-import { deleteTank, restart } from "./../redux/actionCreater.js";
-import { borderExplosionSound, shotSound } from "./../audio/audio.js";
+import { shotSound } from "./../audio/audio.js";
+import { deleteTank } from "../redux/actionCreater.js";
 export class Tank extends GameObject {
   constructor(positionTop, positionLeft, store) {
     super(positionTop, positionLeft, store);
@@ -37,7 +37,7 @@ export class Tank extends GameObject {
   };
 
   shot = () => {
-    if (this.$element) {
+    if (this.isDrawn) {
       const storeWalls = this.store.getState().walls;
       let walls;
       if (!this.isShoted) {
@@ -49,6 +49,7 @@ export class Tank extends GameObject {
         this.bullet = new Bullet(
           this.borderTop + BLOCK_SIZE / 2 - BULLET_SIZE / 2,
           this.borderLeft + BLOCK_SIZE / 2 - BULLET_SIZE / 2,
+          this.store,
           this
         );
 
@@ -97,8 +98,9 @@ export class Tank extends GameObject {
   };
 
   _poof = (walls, enemies) => {
-    if (this.bullet.$element) {
+    if (this.bullet.isDrawn) {
       this.bullet.move();
+
       checkColisions(this.bullet, enemies, this.store);
       checkColisions(this.bullet, walls, this.store);
       requestAnimationFrame(() => this._poof(walls, enemies));
@@ -111,8 +113,8 @@ export class Tank extends GameObject {
   _move = () => {
     if (
       this._checkTankNotOutOfBorder() &&
-      this._noWallCollision(this.store.getState().walls) &&
-      this._noWallCollision(this.store.getState().tanks)
+      this._noCollisionWithObjects(this.store.getState().walls) &&
+      this._noCollisionWithObjects(this.store.getState().tanks)
     ) {
       switch (this.turrelDirection) {
         case UP:
@@ -134,92 +136,92 @@ export class Tank extends GameObject {
   _checkTankNotOutOfBorder = () => {
     switch (this.turrelDirection) {
       case UP:
-        return this.borderTop - TANK_SPEED >= this.gameField.offsetTop;
+        return this.borderTop - TANK_SPEED >= 0;
       case DOWN:
-        return this.borderBottom + TANK_SPEED <= this.gameField.offsetHeight;
+        return this.borderBottom + TANK_SPEED <= GAMEFIELD_SIZE;
       case LEFT:
-        return this.borderLeft - TANK_SPEED >= this.gameField.offsetLeft;
+        return this.borderLeft - TANK_SPEED >= 0;
       case RIGHT:
-        return this.borderRight + TANK_SPEED <= this.gameField.offsetWidth;
+        return this.borderRight + TANK_SPEED <= GAMEFIELD_SIZE;
     }
   };
 
   _changeTurrelDirection = (direction) => {
-    const element = this.$element;
+    let degreese = 0;
+
     this.turrelDirection = direction;
+
     switch (this.turrelDirection) {
       case UP:
-        element.style.transform = "rotate(0deg)";
+        degreese = 0;
         break;
       case DOWN:
-        element.style.transform = "rotate(180deg)";
+        degreese = 180;
         break;
       case LEFT:
-        element.style.transform = "rotate(270deg)";
+        degreese = 270;
         break;
       case RIGHT:
-        element.style.transform = "rotate(90deg)";
+        degreese = 90;
         break;
     }
+    this.$element.style.transform = "rotate(" + degreese + "deg)";
   };
 
-  _noWallCollision = (walls) => {
-    const nearWalls = walls.filter((wall) => _isNearWall(wall, this));
-    const newWall = nearWalls.map((elem) => isWall(elem, this, this.turrelDirection));
+  _noCollisionWithObjects = (objects) => {
+    const nearObjects = objects.filter((object) => _isNearObjects(object, this));
+    const nearBurrelDirectionObjects = nearObjects.map((object) =>
+      _willObjectsCollision(object, this, this.turrelDirection)
+    );
+    return nearBurrelDirectionObjects.every((object) => object == false);
 
-    return newWall.every(isBigEnough);
-
-    function isBigEnough(element, index, array) {
-      return element == false;
-    }
-
-    function _isNearWall(wall, tank) {
+    function _isNearObjects(object, tank) {
       if (
-        wall.borderTop < tank.borderBottom + TANK_SPEED &&
-        wall.borderBottom > tank.borderTop - TANK_SPEED &&
-        wall.borderLeft < tank.borderRight + TANK_SPEED &&
-        wall.borderRight > tank.borderLeft - TANK_SPEED
+        object.borderTop < tank.borderBottom + TANK_SPEED &&
+        object.borderBottom > tank.borderTop - TANK_SPEED &&
+        object.borderLeft < tank.borderRight + TANK_SPEED &&
+        object.borderRight > tank.borderLeft - TANK_SPEED
       ) {
         return true;
       }
       return false;
     }
 
-    function isWall(elem, tank, turrel) {
+    function _willObjectsCollision(objects, tank, turrel) {
       let result = false;
       switch (turrel) {
         case UP:
           if (
-            tank.borderTop === elem.borderBottom &&
-            tank.borderLeft < elem.borderRight &&
-            tank.borderRight > elem.borderLeft
+            tank.borderTop === objects.borderBottom &&
+            tank.borderLeft < objects.borderRight &&
+            tank.borderRight > objects.borderLeft
           ) {
             result = true;
           }
           break;
         case DOWN:
           if (
-            tank.borderBottom === elem.borderTop &&
-            tank.borderLeft < elem.borderRight &&
-            tank.borderRight > elem.borderLeft
+            tank.borderBottom === objects.borderTop &&
+            tank.borderLeft < objects.borderRight &&
+            tank.borderRight > objects.borderLeft
           ) {
             result = true;
           }
           break;
         case LEFT:
           if (
-            tank.borderLeft === elem.borderRight &&
-            tank.borderTop < elem.borderBottom &&
-            tank.borderBottom > elem.borderTop
+            tank.borderLeft === objects.borderRight &&
+            tank.borderTop < objects.borderBottom &&
+            tank.borderBottom > objects.borderTop
           ) {
             result = true;
           }
           break;
         case RIGHT:
           if (
-            tank.borderRight === elem.borderLeft &&
-            tank.borderTop < elem.borderBottom &&
-            tank.borderBottom > elem.borderTop
+            tank.borderRight === objects.borderLeft &&
+            tank.borderTop < objects.borderBottom &&
+            tank.borderBottom > objects.borderTop
           ) {
             result = true;
           }
@@ -230,8 +232,8 @@ export class Tank extends GameObject {
   };
 
   deleteElement = () => {
+    this.isDrawn = false;
     this.$element.remove();
-    this.$element = null;
     this.store.dispatch(deleteTank(this));
   };
 }

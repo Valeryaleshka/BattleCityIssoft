@@ -11,3 +11,7 @@ export function toggleGameOverScreen() {
   const gameOver = document.getElementById("gameOverScreen");
   gameOver.classList.toggle("hidden");
 }
+
+export function activateLooserScreen() {
+  document.getElementById("gameOverText").innerText = "You Lose";
+}

@@ -1,3 +1,4 @@
+export const GAMEFIELD_SIZE = 624;
 export const REVERSE = -1;
 export const TANK_SPEED = 2;
 export const BULLET_SPEED = 12;
@@ -12,3 +13,11 @@ export const NUMBER_OF_ENEMY_STEPS_PER_MOVE = 24;
 export const PLAYER_1_LEFT_POSITION = 192;
 export const PLAYER_1_TOP_POSITION = 576;
 export const TIME_FOR_1_STEP = 500;
+export const INITIAL_PARAMETERS = {
+  tanks: [],
+  walls: [],
+  enemiesCount: 21,
+  playerLives: 3,
+  isPaused: false,
+  IS_GAME_OVER: false,
+};

@@ -30,7 +30,7 @@ export class PlayerTank extends Tank {
     this.borderRight = this.borderLeft + BLOCK_SIZE;
     this.borderBottom = this.borderTop + BLOCK_SIZE;
     this.$element = this.createElement();
-    this.draw();
     this.store.dispatch(add_tank(this));
+    this.draw();
   };
 }
