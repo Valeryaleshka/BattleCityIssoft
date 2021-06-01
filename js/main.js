@@ -4,9 +4,8 @@ import { levelInit } from "./functions/levelInit.js";
 import { KeyPRESS, KeyUNPRESS } from "./settings/keyboardButtons.js";
 import { createStore } from "./redux/createStore.js";
 import { rootReducer } from "./redux/rootReducer.js";
-import { subscribe } from "./models/subscribers.js";
+import { subscribe } from "./functions/subscribers.js";
 import { startRestartGame } from "./functions/startRestart.js";
-import { LEVEL1 } from "./models/map.js";
 
 const store = createStore(rootReducer);
 subscribe(store);
@@ -15,8 +14,8 @@ document.addEventListener("keydown", (e) => controlKeyHandle(e, KeyPRESS));
 document.addEventListener("keyup", (e) => controlKeyHandle(e, KeyUNPRESS));
 document.addEventListener("click", (e) => startRestartGame(e, store, initialization));
 
-function initialization() {
-  levelInit(store, LEVEL1);
+export function initialization() {
+  levelInit(store);
   gameloop();
 }
 

@@ -85,6 +85,7 @@ main {
 .tank_enemy {
   background: url("./assets/images/tank_basic_up_c0_t1.png") 100% 100% no-repeat;
   background-size: cover;
+  transform: rotate(180deg);
   z-index: 2;
 }
 
@@ -125,6 +126,21 @@ main {
 
 .brickWall {
   background: url("./assets/images/wall.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+.steelWall {
+  background: url("./assets/images/wall_steel.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+.playerBase {
+  background: url("./assets/images/base.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+.playerBaseDestroyed {
+  background: url("./assets/images/base_destroyed.png") 100% 100% no-repeat;
   background-size: cover;
 }
 
@@ -172,4 +188,62 @@ ul {
   color: white;
   font-size: 20px;
   padding-left: 10px;
+}
+
+.boom_Image_1 {
+  z-index: 5;
+  background: url("./assets/images/big_explosion_1.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+.boom_Image_2 {
+  z-index: 5;
+  background: url("./assets/images/big_explosion_2.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+.boom_Image_3 {
+  z-index: 5;
+  background: url("./assets/images/big_explosion_3.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+.boom_Image_4 {
+  z-index: 5;
+  background: url("./assets/images/big_explosion_4.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+.boom_Image_5 {
+  z-index: 5;
+  background: url("./assets/images/big_explosion_5.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+.appear_1 {
+  background-color: black;
+  z-index: 22;
+  background: url("./assets/images/appear_1.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+.appear_2 {
+  background-color: black;
+  z-index: 22;
+  background: url("./assets/images/appear_2.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+.appear_3 {
+  background-color: black;
+  z-index: 22;
+  background: url("./assets/images/appear_3.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+.appear_4 {
+  background-color: black;
+  z-index: 22;
+  background: url("./assets/images/appear_4.png") 100% 100% no-repeat;
+  background-size: cover;
 }

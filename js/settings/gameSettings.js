@@ -13,11 +13,13 @@ export const NUMBER_OF_ENEMY_STEPS_PER_MOVE = 24;
 export const PLAYER_1_LEFT_POSITION = 192;
 export const PLAYER_1_TOP_POSITION = 576;
 export const TIME_FOR_1_STEP = 500;
+export const ENEMIES_COUNT = 21;
 export const INITIAL_PARAMETERS = {
   tanks: [],
   walls: [],
-  enemiesCount: 21,
+  enemiesCount: ENEMIES_COUNT,
   playerLives: 3,
   isPaused: false,
   IS_GAME_OVER: false,
+  currentLevel: 0,
 };

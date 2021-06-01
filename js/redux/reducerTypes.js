@@ -7,3 +7,5 @@ export const DECREMENT_ENEMIES_LIVE = "DECREMENT_ENEMIES_LIVE";
 export const GAME_OVER = "GAME_OVER";
 export const RESTART = "RESTART";
 export const PAUSE = "PAUSE";
+export const NEXT_LEVEL = "NEXT_LEVEL";
+export const RESUME_GAME = "RESUME_GAME";

@@ -1,6 +1,6 @@
 import { add_tank, decrementEnemyTank } from "../redux/actionCreater.js";
-import { EnemyTank } from "../models/enemyTank.js";
-import { ENEMY_TANK } from "../models/modelTypes.js";
+import { EnemyTank } from "../models/tanks/enemyTank.js";
+import { ENEMY_TANK } from "./../models/types/modelTypes.js";
 import {
   ENEMY_TOP_POSITION,
   ENEMY_CENTER_POSITION,
@@ -10,6 +10,7 @@ import {
   NUMBER_OF_ENEMY_STEPS_PER_MOVE,
   TIME_FOR_1_STEP,
 } from "../settings/gameSettings.js";
+import { appearAnimation } from "./viewFunctions.js";
 
 let currentIndexOfEnemiesPositions = 0;
 const enemiesPositions = [ENEMY_LEFT_POSITION, ENEMY_CENTER_POSITION, ENEMY_RIGHT_POSITION];
@@ -36,8 +37,9 @@ function _createAI(positionTop, positionLeft, store) {
   const enemy = new EnemyTank(positionTop, positionLeft, store);
   let randomNumberDistanceMove = 1;
 
-  store.dispatch(add_tank(enemy));
+  appearAnimation(enemy, 1);
   enemy.draw();
+  store.dispatch(add_tank(enemy));
 
   function timeout() {
     setTimeout(function () {

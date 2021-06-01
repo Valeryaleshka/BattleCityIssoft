@@ -1,4 +1,5 @@
-import { PLAYER_TANK } from "./../models/modelTypes.js";
+import { moveSound } from "../audio/audio.js";
+import { PLAYER_TANK } from "./../models/types/modelTypes.js";
 import { KeyA, KeyD, KeyPRESS, KeyS, KeySPACE, KeyUNPRESS, KeyW } from "./../settings/keyboardButtons.js";
 
 const pressedKeys = [];
@@ -28,7 +29,14 @@ export function handlePlayerTankFunctions(store) {
   if (pressedSpace) {
     tank.shot();
   }
+
+  if (pressedKeys.length === 0) {
+    moveSound.pause();
+  }
+
   if (pressedKeys.length > 0) {
+    moveSound.play();
+
     const key = pressedKeys[pressedKeys.length - 1];
     if (key === KeyW) {
       tank.moveUp();

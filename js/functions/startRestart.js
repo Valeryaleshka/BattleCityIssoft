@@ -1,3 +1,4 @@
+import { muteTankSound } from "../audio/audio.js";
 import { restart } from "../redux/actionCreater.js";
 import { toggleGameOverScreen, toggleStartScreen } from "./viewFunctions.js";
 
@@ -16,6 +17,7 @@ function _startGame(initializationFunction) {
 }
 
 function _restartGame(store, initializationFunction) {
+  muteTankSound();
   toggleGameOverScreen();
   store.dispatch(restart());
   initializationFunction();

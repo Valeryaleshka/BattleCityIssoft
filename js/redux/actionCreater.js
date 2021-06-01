@@ -6,6 +6,8 @@ import {
   DECREMENT_ENEMIES_LIVE,
   GAME_OVER,
   RESTART,
+  NEXT_LEVEL,
+  RESUME_GAME,
 } from "./reducerTypes.js";
 
 export function pauseGame() {
@@ -55,5 +57,17 @@ export function deleteTank(tank) {
 export function decrementEnemyTank() {
   return {
     type: DECREMENT_ENEMIES_LIVE,
+  };
+}
+
+export function nextLevel() {
+  return {
+    type: NEXT_LEVEL,
+  };
+}
+
+export function resumeGame() {
+  return {
+    type: RESUME_GAME,
   };
 }

@@ -8,9 +8,13 @@ import {
   GAME_OVER,
   RESTART,
   PAUSE,
+  NEXT_LEVEL,
+  RESUME_GAME,
 } from "./reducerTypes.js";
-import { PLAYER_TANK } from "./../models/modelTypes.js";
-import { INITIAL_PARAMETERS } from "../settings/gameSettings.js";
+import { PLAYER_TANK } from "./../models//types/modelTypes.js";
+import { ENEMIES_COUNT, INITIAL_PARAMETERS } from "../settings/gameSettings.js";
+import { muteTankSound } from "../audio/audio.js";
+import { clearGameField } from "../functions/viewFunctions.js";
 
 export function rootReducer(state, action) {
   if (action.type === INIT) {
@@ -18,7 +22,7 @@ export function rootReducer(state, action) {
   }
 
   if (action.type === RESTART) {
-    document.querySelector("#gamefield").innerHTML = "";
+    clearGameField();
     return INITIAL_PARAMETERS;
   }
 
@@ -65,6 +69,17 @@ export function rootReducer(state, action) {
   }
 
   if (action.type === GAME_OVER) {
+    muteTankSound();
     return { ...state, IS_GAME_OVER: true };
+  }
+
+  if (action.type === NEXT_LEVEL) {
+    const temp = state.currentLevel + 1;
+    clearGameField();
+    return { ...state, currentLevel: temp, IS_GAME_OVER: false, enemiesCount: ENEMIES_COUNT, walls: [], tanks: [] };
+  }
+
+  if (action.type === RESUME_GAME) {
+    return { ...state, IS_GAME_OVER: false, enemiesCount: ENEMIES_COUNT };
   }
 }

@@ -1,5 +1,5 @@
-import { UP, DOWN, RIGHT, LEFT, PLAYER_TANK } from "./modelTypes.js";
-import { GameObject } from "./gameObject.js";
+import { UP, DOWN, RIGHT, LEFT, PLAYER_TANK } from "./types/modelTypes.js";
+import { GameObject } from "./abstractModels/gameObject.js";
 import { BULLET_SIZE, BULLET_SPEED, GAMEFIELD_SIZE, REVERSE } from "./../settings/gameSettings.js";
 import { borderExplosionSound } from "./../audio/audio.js";
 
