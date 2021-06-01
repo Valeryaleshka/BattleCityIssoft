@@ -42,6 +42,9 @@ export class Tank extends GameObject {
       const storeWalls = this.store.getState().walls;
       let walls;
       if (!this.isShoted) {
+        if (this.type === PLAYER_TANK) {
+          shotSound();
+        }
         this.isShoted = true;
         this.bullet = new Bullet(
           this.borderTop + BLOCK_SIZE / 2 - BULLET_SIZE / 2,
