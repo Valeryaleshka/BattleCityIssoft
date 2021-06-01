@@ -1,16 +1,16 @@
-const borderAudio = "./../../assets/sounds/steel.ogg";
-const startAudio = "./../../assets/sounds/gamestart.ogg";
-const gameoverAudio = "./../../assets/sounds/gameover.ogg";
-const shotAudio = "./../../assets/sounds/shot.mp3";
-const explosionAudio = "./../../assets/sounds/dead_tank.mp3";
-const wallExplosionAudio = "./../../assets/sounds/wallHit.ogg";
+const borderAudio = "/assets/sounds/steel.ogg";
+const startAudio = "/assets/sounds/gamestart.ogg";
+const gameoverAudio = "/assets/sounds/gameover.ogg";
+const shotAudio = "/assets/sounds/shot.mp3";
+const explosionAudio = "/assets/sounds/dead_tank.mp3";
+const wallExplosionAudio = "/assets/sounds/wallHit.ogg";
 
-export const moveSound = new Audio("./../../assets/sounds/moveSound.wav");
+export const moveSound = new Audio(window.location.href + "/assets/sounds/moveSound.wav");
 moveSound.volume = 0;
 moveSound.preload = "auto";
 moveSound.loop = true;
 
-export const idlingSound = new Audio("./../../assets/sounds/stopSound.wav");
+export const idlingSound = new Audio(window.location.href + "/assets/sounds/stopSound.wav");
 idlingSound.volume = 0;
 idlingSound.preload = "auto";
 idlingSound.loop = true;
@@ -40,7 +40,8 @@ export function gameOverSound() {
 }
 
 function _playSound(src) {
-  const audio = new Audio(src);
+  const audio = new Audio();
+  audio.src = window.location.href + src;
   audio.volume = 0.3;
   audio.play();
 }
