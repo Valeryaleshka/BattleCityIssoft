@@ -1,3 +1,5 @@
+const button = document.getElementById("butt");
+
 export function toggleStartScreen() {
   const main = document.getElementById("main");
   main.classList.remove("hidden");
@@ -56,8 +58,8 @@ export function appearAnimation(object) {
 
 export function activateGameOverScreen() {
   document.getElementById("gameOverText").innerText = "You Win";
-  if (document.getElementById("butt").classList.contains("hidden")) {
-    document.getElementById("butt").classList.remove("hidden");
+  if (button.classList.contains("hidden")) {
+    button.classList.remove("hidden");
   }
 }
 
@@ -66,14 +68,14 @@ export function activateLooserScreen() {
 }
 
 export function unlockRestartButton() {
-  if (document.getElementById("butt").classList.contains("hidden")) {
-    document.querySelgetElementByIdector("butt").classList.remove("hidden");
+  if (button.classList.contains("hidden")) {
+    button.classList.remove("hidden");
   }
 }
 
 export function lockRestartButton() {
-  if (!document.querySelector("#butt").classList.contains("hidden")) {
-    document.querySelector("#butt").classList.add("hidden");
+  if (!button.classList.contains("hidden")) {
+    button.classList.add("hidden");
   }
 }
 

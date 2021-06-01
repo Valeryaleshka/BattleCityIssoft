@@ -49,6 +49,8 @@ export function checkColisions(bullet, arrayOfObjects, store) {
             }
             if (gameObject.store.getState().playerLives === 0) {
               store.dispatch(gameOver());
+              activateLooserScreen();
+              unlockRestartButton();
             }
           }
         }
