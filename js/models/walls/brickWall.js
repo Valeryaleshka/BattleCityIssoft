@@ -1,8 +1,8 @@
-import { BRICK_WALL } from "./../types/modelTypes.js";
-import { deleteWall } from "./../../redux/actionCreater.js";
-import { GameObject } from "../abstractModels/gameObject.js";
+import { BRICK_WALL, PLAYER_TANK } from "./../types/modelTypes.js";
+import { Wall } from "../abstractModels/wall.js";
+import { wallExplosionSound } from "../../audio/audio.js";
 
-export class BrickWall extends GameObject {
+export class BrickWall extends Wall {
   constructor(positionTop, positionLeft, store) {
     super(positionTop, positionLeft, store);
     this.className = this.className + " brickWall";
@@ -10,9 +10,10 @@ export class BrickWall extends GameObject {
     this.$element = this.createElement();
   }
 
-  deleteElement = () => {
-    this.$element.remove();
-    this.isDrawn = false;
-    this.store.dispatch(deleteWall(this));
-  };
+  deleteObject(bullet) {
+    super.deleteObject();
+    if (bullet.tank.type === PLAYER_TANK) {
+      wallExplosionSound();
+    }
+  }
 }

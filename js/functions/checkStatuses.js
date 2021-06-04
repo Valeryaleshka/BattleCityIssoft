@@ -5,14 +5,14 @@ import { gameOverSound, moveSound, idlingSound } from "../audio/audio.js";
 import { initialization } from "./../main.js";
 import { LEVELS } from "../settings/maps.js";
 
-export function checkIsGameOver(store) {
+export function gameOverHandler(store) {
   const enemiesTanks = store.getState().tanks.filter((tank) => tank.type == ENEMY_TANK);
   const enemiesLives = store.getState().enemiesCount;
 
   if (enemiesTanks.length === 0 && enemiesLives === 0 && !store.getState().IS_GAME_OVER) {
     if (store.getState().currentLevel < LEVELS.length - 1) {
-      activateNextLevelScreen();
       store.dispatch(gameOver());
+      activateNextLevelScreen();
       setTimeout(() => {
         store.dispatch(nextLevel());
         toggleGameOverScreen();

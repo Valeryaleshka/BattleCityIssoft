@@ -1,8 +1,15 @@
+import { boomSound } from "../../audio/audio.js";
+import {
+  activateLooserScreen,
+  animateDistroyedBase,
+  boomAnimation,
+  unlockRestartButton,
+} from "../../functions/viewFunctions.js";
+import { deleteWall, gameOver } from "../../redux/actionCreater.js";
+import { Wall } from "../abstractModels/wall.js";
 import { PLAYER_BASE } from "../types/modelTypes.js";
-import { deleteWall } from "../../redux/actionCreater.js";
-import { GameObject } from "../abstractModels/gameObject.js";
 
-export class PlayerBase extends GameObject {
+export class PlayerBase extends Wall {
   constructor(positionTop, positionLeft, store) {
     super(positionTop, positionLeft, store);
     this.className = this.className + " playerBase";
@@ -10,9 +17,14 @@ export class PlayerBase extends GameObject {
     this.$element = this.createElement();
   }
 
-  deleteElement = () => {
-    this.$element.remove();
+  deleteObject() {
     this.isDrawn = false;
     this.store.dispatch(deleteWall(this));
-  };
+    boomSound();
+    activateLooserScreen();
+    unlockRestartButton();
+    this.store.dispatch(gameOver());
+    boomAnimation(this);
+    setTimeout(() => animateDistroyedBase(this), 335);
+  }
 }

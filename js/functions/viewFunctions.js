@@ -1,4 +1,13 @@
-const button = document.getElementById("butt");
+const button = document.getElementById("restartButton");
+
+function _createElement(object) {
+  const $element = document.createElement("div");
+  $element.className = "game_object";
+  $element.style.top = object.borderTop + "px";
+  $element.style.left = object.borderLeft + "px";
+
+  return $element;
+}
 
 export function toggleStartScreen() {
   const main = document.getElementById("main");
@@ -15,18 +24,14 @@ export function toggleGameOverScreen() {
 }
 
 export function boomAnimation(object) {
-  const $element = document.createElement("div");
-  $element.className = "game_object";
-  $element.style.top = object.borderTop + "px";
-  $element.style.left = object.borderLeft + "px";
+  const $element = _createElement(object);
+  _animateBoom($element, 1);
 
-  animateBoom($element, 1);
-
-  function animateBoom(element, image) {
+  function _animateBoom(element, image) {
     if (image < 6) {
       element.className = "game_object boom_Image_" + image;
       image = image + 1;
-      setTimeout(() => animateBoom(element, image), 67);
+      setTimeout(() => _animateBoom(element, image), 67);
     } else {
       element.remove();
     }
@@ -36,18 +41,14 @@ export function boomAnimation(object) {
 }
 
 export function appearAnimation(object) {
-  const $element = document.createElement("div");
-  $element.className = "game_object";
-  $element.style.top = object.borderTop + "px";
-  $element.style.left = object.borderLeft + "px";
+  const $element = _createElement(object);
+  _animateAppear($element, 1);
 
-  animateBoom($element, 1);
-
-  function animateBoom(element, image) {
+  function _animateAppear(element, image) {
     if (image < 5) {
       element.className = "game_object appear_" + image;
       image = image + 1;
-      setTimeout(() => animateBoom(element, image), 100);
+      setTimeout(() => _animateAppear(element, image), 100);
     } else {
       element.remove();
     }

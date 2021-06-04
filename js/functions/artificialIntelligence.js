@@ -39,7 +39,6 @@ function _createAI(positionTop, positionLeft, store) {
 
   appearAnimation(enemy, 1);
   enemy.draw();
-  store.dispatch(add_tank(enemy));
 
   function timeout() {
     setTimeout(function () {

@@ -1,8 +1,8 @@
-import { STEEL_WALL } from "../types/modelTypes.js";
-import { deleteWall } from "../../redux/actionCreater.js";
-import { GameObject } from "../abstractModels/gameObject.js";
+import { PLAYER_TANK, STEEL_WALL } from "../types/modelTypes.js";
+import { Wall } from "../abstractModels/wall.js";
+import { borderExplosionSound } from "../../audio/audio.js";
 
-export class SteelWall extends GameObject {
+export class SteelWall extends Wall {
   constructor(positionTop, positionLeft, store) {
     super(positionTop, positionLeft, store);
     this.className = this.className + " steelWall";
@@ -10,9 +10,9 @@ export class SteelWall extends GameObject {
     this.$element = this.createElement();
   }
 
-  deleteElement = () => {
-    this.$element.remove();
-    this.isDrawn = false;
-    this.store.dispatch(deleteWall(this));
-  };
+  deleteObject(bullet) {
+    if (bullet.tank.type === PLAYER_TANK) {
+      borderExplosionSound();
+    }
+  }
 }

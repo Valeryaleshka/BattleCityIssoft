@@ -1,10 +1,10 @@
 import { UP, DOWN, RIGHT, LEFT, PLAYER_TANK } from "../types/modelTypes.js";
 import { GameObject } from "./gameObject.js";
 import { Bullet } from "../bullet.js";
-import { BLOCK_SIZE, BULLET_SIZE, GAMEFIELD_SIZE, TANK_SPEED } from "../../settings/gameSettings.js";
-import { checkColisions } from "../../functions/checkColisions.js";
-import { moveSound, shotSound } from "../../audio/audio.js";
-import { deleteTank } from "../../redux/actionCreater.js";
+import { BLOCK_SIZE, BULLET_SIZE, GAMEFIELD_SIZE, REVERSE, TANK_SPEED } from "../../settings/gameSettings.js";
+import { handleColisions } from "../../functions/handleColisions.js";
+import { boomSound, shotSound } from "../../audio/audio.js";
+import { add_tank, deleteTank } from "../../redux/actionCreater.js";
 import { boomAnimation } from "../../functions/viewFunctions.js";
 export class Tank extends GameObject {
   constructor(positionTop, positionLeft, store) {
@@ -12,32 +12,32 @@ export class Tank extends GameObject {
     this.className = this.className + " tank_";
     this.type = "tank";
     this.turrelDirection = UP;
-    this.$element = this.createElement();
     this.isShoted = false;
     this.bullet = null;
+    this.store.dispatch(add_tank(this));
   }
 
-  moveUp = () => {
+  moveUp() {
     this._changeTurrelDirection(UP);
     this._move();
-  };
+  }
 
-  moveDown = () => {
+  moveDown() {
     this._changeTurrelDirection(DOWN);
     this._move();
-  };
+  }
 
-  moveLeft = () => {
+  moveLeft() {
     this._changeTurrelDirection(LEFT);
     this._move();
-  };
+  }
 
-  moveRight = () => {
+  moveRight() {
     this._changeTurrelDirection(RIGHT);
     this._move();
-  };
+  }
 
-  shot = () => {
+  shot() {
     if (this.isDrawn) {
       const storeWalls = this.store.getState().walls;
       let walls;
@@ -92,52 +92,47 @@ export class Tank extends GameObject {
             break;
         }
         const enemies = this.store.getState().tanks.filter((elem) => elem.type != this.type);
-        this._poof(walls, enemies);
+        this._launchBullet(walls, enemies);
       }
     }
-  };
+  }
 
-  _poof = (walls, enemies) => {
+  _launchBullet(walls, enemies) {
     if (this.bullet.isDrawn) {
       this.bullet.move();
-
-      checkColisions(this.bullet, enemies, this.store);
-      checkColisions(this.bullet, walls, this.store);
-      requestAnimationFrame(() => this._poof(walls, enemies));
+      handleColisions(this.bullet, enemies, this.store);
+      handleColisions(this.bullet, walls, this.store);
+      requestAnimationFrame(() => this._launchBullet(walls, enemies));
     } else {
       this.bullet = null;
       this.isShoted = false;
     }
-  };
+  }
 
-  _move = () => {
+  _move() {
     if (
       this._checkTankNotOutOfBorder() &&
       this._noCollisionWithObjects(this.store.getState().walls) &&
       this._noCollisionWithObjects(this.store.getState().tanks)
     ) {
-      if (this.type === PLAYER_TANK) {
-        moveSound.play();
-      }
-
       switch (this.turrelDirection) {
         case UP:
-          this.moveElement(0, TANK_SPEED * -1);
+          this.moveObject(0, TANK_SPEED * REVERSE);
           break;
         case DOWN:
-          this.moveElement(0, TANK_SPEED);
+          this.moveObject(0, TANK_SPEED);
           break;
         case LEFT:
-          this.moveElement(TANK_SPEED * -1, 0);
+          this.moveObject(TANK_SPEED * REVERSE, 0);
           break;
         case RIGHT:
-          this.moveElement(TANK_SPEED, 0);
+          this.moveObject(TANK_SPEED, 0);
           break;
       }
     }
-  };
+  }
 
-  _checkTankNotOutOfBorder = () => {
+  _checkTankNotOutOfBorder() {
     switch (this.turrelDirection) {
       case UP:
         return this.borderTop - TANK_SPEED >= 0;
@@ -148,9 +143,9 @@ export class Tank extends GameObject {
       case RIGHT:
         return this.borderRight + TANK_SPEED <= GAMEFIELD_SIZE;
     }
-  };
+  }
 
-  _changeTurrelDirection = (direction) => {
+  _changeTurrelDirection(direction) {
     let degreese = 0;
 
     this.turrelDirection = direction;
@@ -170,9 +165,9 @@ export class Tank extends GameObject {
         break;
     }
     this.$element.style.transform = "rotate(" + degreese + "deg)";
-  };
+  }
 
-  _noCollisionWithObjects = (objects) => {
+  _noCollisionWithObjects(objects) {
     const nearObjects = objects.filter((object) => _isNearObjects(object, this));
     const nearBurrelDirectionObjects = nearObjects.map((object) =>
       _willObjectsCollision(object, this, this.turrelDirection)
@@ -233,12 +228,12 @@ export class Tank extends GameObject {
       }
       return result;
     }
-  };
+  }
 
-  deleteElement = () => {
-    this.isDrawn = false;
-    this.$element.remove();
+  deleteObject() {
+    super.deleteObject();
     this.store.dispatch(deleteTank(this));
     boomAnimation(this);
-  };
+    boomSound();
+  }
 }

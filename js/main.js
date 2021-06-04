@@ -1,11 +1,12 @@
 import { controlKeyHandle, handlePlayerTankFunctions } from "./settings/control.js";
-import { checkIsGameOver, gameOverFunction } from "./functions/checkStatuses.js";
+import { gameOverHandler, gameOverFunction } from "./functions/checkStatuses.js";
 import { levelInit } from "./functions/levelInit.js";
 import { KeyPRESS, KeyUNPRESS } from "./settings/keyboardButtons.js";
 import { createStore } from "./redux/createStore.js";
 import { rootReducer } from "./redux/rootReducer.js";
 import { subscribe } from "./functions/subscribers.js";
 import { startRestartGame } from "./functions/startRestart.js";
+import { PLAYER_1_LEFT_POSITION } from "./settings/gameSettings.js";
 
 const store = createStore(rootReducer);
 subscribe(store);
@@ -24,7 +25,7 @@ function gameloop() {
     gameOverFunction(store);
   } else {
     handlePlayerTankFunctions(store);
-    checkIsGameOver(store);
+    gameOverHandler(store);
     requestAnimationFrame(gameloop);
   }
 }

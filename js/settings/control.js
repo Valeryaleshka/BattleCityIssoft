@@ -4,22 +4,11 @@ import { KeyA, KeyD, KeyPRESS, KeyS, KeySPACE, KeyUNPRESS, KeyW } from "./../set
 
 const pressedKeys = [];
 let pressedSpace = false;
+const keyCodes = [KeyW, KeyS, KeyA, KeyD, KeySPACE];
 
 export function controlKeyHandle(e, keyState) {
-  if (e.keyCode === KeyW) {
-    _handleKey(KeyW, keyState);
-  }
-  if (e.keyCode === KeyS) {
-    _handleKey(KeyS, keyState);
-  }
-  if (e.keyCode === KeyA) {
-    _handleKey(KeyA, keyState);
-  }
-  if (e.keyCode === KeyD) {
-    _handleKey(KeyD, keyState);
-  }
-  if (e.keyCode === KeySPACE) {
-    _handleKey(KeySPACE, keyState);
+  if (keyCodes.indexOf(e.keyCode) !== -1) {
+    _handleKey(e.keyCode, keyState);
   }
 }
 

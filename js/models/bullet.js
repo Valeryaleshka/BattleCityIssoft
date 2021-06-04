@@ -13,45 +13,43 @@ export class Bullet extends GameObject {
     this.type = "bullet";
     this.$element = this.createElement(positionTop, positionLeft);
     this.tank = tank;
-
     this.draw();
   }
 
-  createElement = () => {
+  createElement() {
     const $element = document.createElement("div");
     $element.className = this.className;
     $element.style.top = this.borderTop + "px";
     $element.style.left = this.borderLeft + "px";
 
     return $element;
-  };
+  }
 
-  move = () => {
+  move() {
     if (this._checkBulletBorederColision()) {
       switch (this.turrelDirection) {
         case UP:
-          this.moveElement(0, BULLET_SPEED * REVERSE);
+          this.moveObject(0, BULLET_SPEED * REVERSE);
           break;
         case DOWN:
-          this.moveElement(0, BULLET_SPEED);
+          this.moveObject(0, BULLET_SPEED);
           break;
         case LEFT:
-          this.moveElement(BULLET_SPEED * REVERSE, 0);
+          this.moveObject(BULLET_SPEED * REVERSE, 0);
           break;
         case RIGHT:
-          this.moveElement(BULLET_SPEED, 0);
+          this.moveObject(BULLET_SPEED, 0);
           break;
       }
     } else {
       if (this.tank.type === PLAYER_TANK) {
         borderExplosionSound();
       }
-
-      this.deleteElement();
+      this.deleteObject();
     }
-  };
+  }
 
-  _checkBulletBorederColision = () => {
+  _checkBulletBorederColision() {
     switch (this.turrelDirection) {
       case UP:
         return this.borderTop > 0;
@@ -62,5 +60,5 @@ export class Bullet extends GameObject {
       case RIGHT:
         return this.borderRight < GAMEFIELD_SIZE;
     }
-  };
+  }
 }
