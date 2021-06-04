@@ -247,3 +247,20 @@ ul {
   background: url("./assets/images/appear_4.png") 100% 100% no-repeat;
   background-size: cover;
 }
+
+.gameButton {
+  font-size: 25px;
+  color: white;
+  transition: all 1s ease-out;
+}
+
+.gameButton:hover {
+  color: red;
+  transition: all 1s ease-out;
+  cursor: pointer;
+}
+
+.gameOverText {
+  font-size: 35px;
+  color: white;
+}
