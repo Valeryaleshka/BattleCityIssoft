@@ -17,6 +17,9 @@ export class Tank extends GameObject {
     this.store.dispatch(add_tank(this));
   }
 
+  DEBOUNCE_TIME = 500; 
+  lastShotTime = 0;
+
   moveUp() {
     this._changeTurrelDirection(UP);
     this._move();
@@ -37,8 +40,14 @@ export class Tank extends GameObject {
     this._move();
   }
 
+
   shot() {
-    if (this.isDrawn) {
+
+    const currentTime = Date.now();
+    
+
+    if (this.isDrawn && currentTime - this.lastShotTime >= this.DEBOUNCE_TIME) {
+      this.lastShotTime = currentTime;
       const storeWalls = this.store.getState().walls;
       let walls;
       if (!this.isShoted) {

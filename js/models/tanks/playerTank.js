@@ -1,7 +1,7 @@
-import { Tank } from "./../abstractModels/tank.js";
+import { Tank } from "../abstractModels/tank.js";
 import { BLOCK_SIZE, PLAYER_1_LEFT_POSITION, PLAYER_1_TOP_POSITION } from "./../../settings/gameSettings.js";
 import { add_tank, gameOver } from "./../../redux/actionCreater.js";
-import { PLAYER_TANK, UP } from "./../types/modelTypes.js";
+import { PLAYER_TANK, UP } from "../types/modelTypes.js";
 import { activateLooserScreen, unlockRestartButton } from "../../functions/viewFunctions.js";
 
 export class PlayerTank extends Tank {

@@ -1,6 +1,6 @@
 import { ENEMY_TANK } from "./../models/types/modelTypes.js";
 import { gameOver, nextLevel } from "./../redux/actionCreater.js";
-import { activateGameOverScreen, activateNextLevelScreen, toggleGameOverScreen } from "./../functions/viewFunctions.js";
+import { activateGameOverScreen, activateNextLevelScreen, toggleGameOverScreen } from "./viewFunctions.js";
 import { gameOverSound, moveSound, idlingSound } from "../audio/audio.js";
 import { initialization } from "./../main.js";
 import { LEVELS } from "../settings/maps.js";

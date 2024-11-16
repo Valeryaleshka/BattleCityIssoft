@@ -1,6 +1,6 @@
 import { moveSound } from "../audio/audio.js";
 import { PLAYER_TANK } from "./../models/types/modelTypes.js";
-import { KeyA, KeyD, KeyPRESS, KeyS, KeySPACE, KeyUNPRESS, KeyW } from "./../settings/keyboardButtons.js";
+import { KeyA, KeyD, KeyPRESS, KeyS, KeySPACE, KeyUNPRESS, KeyW } from "./keyboardButtons.js";
 
 const pressedKeys = [];
 let pressedSpace = false;

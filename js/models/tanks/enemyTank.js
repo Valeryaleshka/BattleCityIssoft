@@ -1,5 +1,5 @@
-import { Tank } from "./../abstractModels/tank.js";
-import { ENEMY_TANK } from "./../types/modelTypes.js";
+import { Tank } from "../abstractModels/tank.js";
+import { ENEMY_TANK } from "../types/modelTypes.js";
 
 export class EnemyTank extends Tank {
   constructor(positionTop, positionLeft, store) {
